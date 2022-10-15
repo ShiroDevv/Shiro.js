@@ -3,13 +3,13 @@ import { Duplex, Readable as ReadableStream, Stream } from "stream";
 import { Agent as HTTPSAgent } from "https";
 import { IncomingMessage, ClientRequest, IncomingHttpHeaders } from "http";
 import OpusScript = require("opusscript"); // Thanks TypeScript
-import { URL } from "url";
+import { Url, URL } from "url";
 import { Socket as DgramSocket } from "dgram";
 import * as WebSocket from "ws";
 
-declare function Eris(token: string, options?: Eris.ClientOptions): Eris.Client;
+declare function Shiro(token: string, options?: Shiro.ClientOptions): Shiro.Client;
 
-declare namespace Eris {
+declare namespace Shiro {
     export const Constants: Constants;
     export const VERSION: string;
 
@@ -3719,6 +3719,144 @@ declare namespace Eris {
         suppress: boolean;
         constructor(data: BaseData);
     }
+
+    export interface embed {
+        title?: string;
+        description?: string;
+        image?: {
+            url: string;
+        };
+        fields?: Array<{
+            text: string;
+            icon_url?: string;
+            proxy_icon_url?: string;
+        }>;
+        footer?: {
+            text: string;
+            icon_url?: string;
+            proxy_icon_url?: string;
+        }
+
+        thumbnail?: {
+            url: string;
+            proxy_url?: string;
+            height?: Number;
+            width?: Number;
+        }
+
+        author?: {
+            name: string;
+            url?: string;
+            icon_url?: string;
+            proxy_icon_url?: string;
+        }
+
+        color?: number;
+
+        url?: string;
+    }
+
+    export class MessageEmbed {
+        public constructor();
+        public setTitle(title: string): void;
+        public setDescription(description: string): void;
+        public setImage(url: string): void;
+        public addField(fieldName: string, fieldText: string | undefined, inline: bool | undefined): void;
+        public setFooter(text: string, iconurl: string | undefined, proxyiconurl: string | undefined): void;
+        public setThumbnail(url: string, proxy_url: string | undefined, height: Number | undefined, width: Number | undefined): void;
+        public setAuthor(name: string, url: string | undefined, icon_url: string | undefined, proxy_icon_url: string | undefined): void;
+        public setColor(color: Number | [Number, Number, Number]): void;
+        public setUrl(url: string): void;
+        public returnEmbed(): embed;
+    }
+
+    export interface button {
+        type: 2;
+        style: number;
+        label?: string;
+        emoji?: {
+            id: string;
+            name: string;
+            animated: boolean;
+        };
+        custom_id?: string;
+        url?: string;
+        disabled?: boolean;
+    }
+
+    export class ButtonBuilder {
+        public constructor();
+        public setStyle(type: "Primary" | "Secondary" | "Success" | "Danger" | "Link" | 1 | 2 | 3 | 4 | 5): void;
+        public setId(id: string): void;
+        public setText(text: string): void;
+        public setEmoji(name: string, id: string, animated: boolean): void;
+        public setUrl(url: string): void;
+        public setDisabled(disabled: boolean): void;
+        public returnButton(): button;
+    }
+
+    export interface menu {
+        type: 3 | 5 | 6 | 7 | 8;
+        custom_id: string;
+        options?: Array<{
+            label: string;
+            value: string;
+            description?: string;
+            emoji?: {
+                id: string;
+                name: string;
+                animated: boolean;
+            };
+            default: boolean;
+        }>;
+        channel_types?: Array<0 | 1 | 2 | 3 | 4 | 5 | 10 | 11 | 12 | 13 | 14 | 15>;
+        placeholder?: string;
+        min_values?: number;
+        max_values?: number;
+        disabled: boolean;
+    }
+
+    export class SelectMenuBuilder {
+        public constructor();
+        public setType(type: 3 | 5 | 6 | 7 | 8 | "text" | "user" | "role" | "mentionable" | "channels"): void;
+        public setId(id: string): void;
+        public addOptions(label: string, value: string, description: string | undefined, emoji: {
+            name: string;
+            id: string;
+            animated: false;
+        } | undefined, selected: boolean): void;
+        public setChannelTypes(types: Array<0 | 1 | 2 | 3 | 4 | 5 | 10 | 11 | 12 | 13 | 14 | 15 | "GUILD_TEXT" | "DM" | "GUILD_VOICE" | "GROUP_DM" | "GUILD_CATEGORY" | "GUILD_ANNOUNCEMENT" | "PUBLIC_THREAD" | "PRIVATE_THREAD" | "GUILD_STAGE_VOICE" | "GUILD_DIRECTORY" | "GUILD_FORUM">): void;
+        public setPlaceholder(text: string): void;
+        public setMinValue(number: number): void;
+        public setMaxValue(number: number): void;
+        public setDisabled(boolean: boolean): void;
+        public returnMenu(): menu;
+    }
+
+    export interface modalOption {
+        type: 4;
+        custom_id: string;
+        style: number;
+        label: string;
+        min_length?: number;
+        max_length?: number;
+        required?: boolean;
+        value?: string;
+        placeholder: string;
+    }
+
+    export class ModalOptionBuilder {
+        public constructor();
+        public setId(id: string): void;
+        public setStyle(style: "Short" | "Paragraph" | 1 | 2): void;
+        public setLabel(label: string): void;
+        public setMinLength(number: number): void;
+        public setMaxLength(number: number): void;
+        public setRequired(boolean: boolean): void;
+        public setValue(string: string): void;
+        public setPlaceholder(string: string): void;
+        public returnModal(): modal;
+    }
 }
 
-export = Eris;
+export = Shiro;
