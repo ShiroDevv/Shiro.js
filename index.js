@@ -65,5 +65,7 @@ Shiro.MessageEmbed = require("./lib/discord/builders/MessageEmbed");
 Shiro.ButtonBuilder = require("./lib/discord/builders/ButtonBuilder");
 Shiro.SelectMenuBuilder = require("./lib/discord/builders/SelectMenuBuilder");
 Shiro.ModalBuilder = require("./lib/discord/builders/ModalBuilder");
-
+Shiro.Sleep = require("./lib/util/sleep");
+Shiro.MessageCollector = require("./lib/discord/collectors/messageCollector");
+Shiro.InteractionCommandBuilder = require("./lib/discord/builders/interactionCommandBuilder");
 module.exports = Shiro;

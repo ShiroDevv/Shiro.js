@@ -1,6 +1,6 @@
 {
     "name": "shirojs",
-    "version": "0.8.3",
+    "version": "0.8.5",
     "description": "A util package for my projects, and a fork of eris.js",
     "main": "./index.js",
     "exports": {
