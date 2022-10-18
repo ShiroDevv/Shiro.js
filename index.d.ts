@@ -2984,7 +2984,8 @@ declare namespace Shiro {
         deleteOriginalMessage(): Promise<void>;
         editMessage(messageID: string, content: string | InteractionContentEdit, file?: FileContent | FileContent[]): Promise<Message>;
         editOriginalMessage(content: string | InteractionContentEdit, file?: FileContent | FileContent[]): Promise<Message>;
-        getOriginalMessage(): Promise<Message>
+        getOriginalMessage(): Promise<Message>;
+        channel: TextChannel
     }
 
     interface ComponentInteractionButtonData {
@@ -3017,7 +3018,8 @@ declare namespace Shiro {
         editMessage(messageID: string, content: string | InteractionContentEdit, file?: FileContent | FileContent[]): Promise<Message>;
         editOriginalMessage(content: string | InteractionContentEdit, file?: FileContent | FileContent[]): Promise<Message>;
         editParent(content: InteractionContentEdit, file?: FileContent | FileContent[]): Promise<void>;
-        getOriginalMessage(): Promise<Message>
+        getOriginalMessage(): Promise<Message>;
+        channel: TextChannel
     }
     export class AutocompleteInteraction<T extends PossiblyUncachedTextable = TextableChannel> extends Interaction {
         appPermissions?: Permission;
@@ -3035,6 +3037,7 @@ declare namespace Shiro {
         user?: User;
         acknowledge(choices: ApplicationCommandOptionChoice[]): Promise<void>;
         result(choices: ApplicationCommandOptionChoice[]): Promise<void>;
+        channel: TextChannel
     }
     export class UnknownInteraction<T extends PossiblyUncachedTextable = TextableChannel> extends Interaction {
         appPermissions?: Permission;
@@ -3058,6 +3061,7 @@ declare namespace Shiro {
         getOriginalMessage(): Promise<Message>
         pong(): Promise<void>;
         result(choices: ApplicationCommandOptionChoice[]): Promise<void>;
+        channel: TextChannel
     }
 
     // If CT (count) is "withMetadata", it will not have count properties
@@ -3855,7 +3859,31 @@ declare namespace Shiro {
         public setRequired(boolean: boolean): void;
         public setValue(string: string): void;
         public setPlaceholder(string: string): void;
-        public returnModal(): modal;
+        public returnModal(): any;
+    }
+
+    export function Sleep(ms: number): Promise<void>;
+
+    export function MessageCollector(channelID: string, options: {
+        maxMessages: number;
+    }, returnFunction: Function, bot: Client | CommandClient): Array<Message> | void;
+
+    export interface interactionObject {
+        name: string;
+        description: string;
+        options: {
+            name: string;
+            description: string;
+            type: number;
+            required: boolean;
+        };
+        type: undefined;
+        defaultPermission: undefined;
+    };
+
+    export class {
+        constructor();
+        setName(name: string);
     }
 }
 
